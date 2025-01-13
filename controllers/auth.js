@@ -74,7 +74,7 @@ exports.Login=async (req,res,next)=>{
             email: loggedUser.email,
             userId: loggedUser._id.toString()
         },
-            'chatapp',
+            'listset',
             { expiresIn: '48hr' }
         )
         res.status(200).json({
