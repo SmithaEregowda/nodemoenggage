@@ -9,8 +9,8 @@ const cors=require("cors");
 const app=express();
 const server = require("http").createServer(app);
 
-//importing routes and using it
 const userRoutes=require('./routes/auth');
+const listRoutes=require('./routes/list');
 const Errorhandler = require("./middlewares/errorhandler");
 
 const BodyParser=require("body-parser")
@@ -41,6 +41,8 @@ app.get('/', (req, res) => {
   });
 
   app.use('/user',userRoutes)
+  
+  app.use('/list',listRoutes)
 
   app.use(Errorhandler)
 
