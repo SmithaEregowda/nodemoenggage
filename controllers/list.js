@@ -17,7 +17,7 @@ exports.postList = async (req, res, next) => {
         
         const filtersetobj = new FilterList({
             userId: userId,
-            nameoffilter: nameoffilter,
+            filterName: nameoffilter,
             images: images
         })
 
@@ -108,7 +108,7 @@ exports.removeFilterSet = async (req, res, next) => {
             throw error;
         }
        
-            let removedList = await FilterList.findByIdAndRemove(listId);
+            let removedList = await FilterList.findByIdAndDelete(listId);
 
         if (!removedList) {
             const error = new Error('List Not Found');
@@ -122,6 +122,32 @@ exports.removeFilterSet = async (req, res, next) => {
             filterset: removedList,
             status:200
         });
+    } catch (err) {
+        next(err)
+    }
+}
+
+exports.getFilterSetById = async (req, res, next) => {
+    const listId = req.params.listId;
+    try {
+        if (!listId) {
+            const error = new Error('please provide Valid product Id');
+            error.statusCode = 400;
+            throw error;
+        }
+        const filterset = await FilterList.findById(listId);
+        if (!filterset) {
+            const error = new Error('filterset not fetched successfully');
+            error.statusCode = 400;
+            throw error;
+        }
+
+        res.status(200).json({
+            status:200,
+            message: 'filterset retreived successfully',
+            filterset
+        })
+
     } catch (err) {
         next(err)
     }

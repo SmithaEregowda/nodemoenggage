@@ -7,7 +7,7 @@ const FilterSetSchema = new Schema({
         type:Schema.Types.ObjectId,
         ref:'User'
      },
-     name:String,
+     filterName:String,
      images:[{
         code:String,
         imagelink:String

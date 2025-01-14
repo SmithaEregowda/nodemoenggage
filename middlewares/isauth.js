@@ -9,7 +9,8 @@ module.exports=(req,res,next)=>{
     const token=req.get('Authorization').split(' ')[1];
     let decodedToken;
     try{
-        decodedToken=jsontoken.verify(token,'veggies')
+        console.log("tokennn----->",token)
+        decodedToken=jsontoken.verify(token,'listset')
     }catch(err){
         err.statusCode=500;
         throw err;
