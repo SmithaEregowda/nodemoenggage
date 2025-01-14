@@ -16,25 +16,26 @@ const Errorhandler = require("./middlewares/errorhandler");
 const BodyParser=require("body-parser")
 
 
+app.use(cors({
+  origin: '*', 
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+  credentials: true, 
+}));
 
+
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With');
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
+  next();
+});
 
 
 app.use(BodyParser.json())
 
 app.use(BodyParser.urlencoded({ extended: true }));
-
-app.use(cors());
-
-//allowing headers from clients
-app.use((req,res,next)=>{
-    res.setHeader('Access-Control-Allow-Origin','*');
-      //*:--->it will allow access for all the clients
-    res.setHeader('Access-Control-Allow-Methods','GET,POST,DELETE,PUT,PATCH');
-
-    res.setHeader('Access-Control-Allow-Headers','*');
-    //allows the headers sent by the client
-  next();
-})
 
 app.get('/', (req, res) => {
     res.send('make world');
